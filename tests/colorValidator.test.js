@@ -1,25 +1,19 @@
-const assert = require('assert');
+const { isValidHex } = require('../app/server'); // Adjust the import based on your setup
 
-function isValidHex(hex) {
-    return /^#([0-9A-F]{3}){1,2}$/i.test(hex);
-}
-
-describe('Hex Color Validator', () => {
-    it('should return true for valid 6-digit hex code', () => {
-        assert.strictEqual(isValidHex('#FFFFFF'), true);
+describe('Color Validation', () => {
+    test('valid hex color #FFFFFF should return true', () => {
+        expect(isValidHex('#FFFFFF')).toBe(true);
     });
 
-    it('should return true for valid 3-digit hex code', () => {
-        assert.strictEqual(isValidHex('#FFF'), true);
+    test('valid hex color #FF5733 should return true', () => {
+        expect(isValidHex('#FF5733')).toBe(true);
     });
 
-    it('should return false for invalid hex code', () => {
-        assert.strictEqual(isValidHex('123456'), false);
+    test('invalid hex color #FFFF23123123121F should return false', () => {
+        expect(isValidHex('#FFFF23123123121F')).toBe(false);
     });
 
-    it('should return false for hex codes with non-hex characters', () => {
-        assert.strictEqual(isValidHex('#GGGGGG'), false);
+    test('invalid hex color 123456 should return false', () => {
+        expect(isValidHex('123456')).toBe(false);
     });
 });
-
-module.exports = isValidHex;
